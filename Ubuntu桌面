@@ -1,0 +1,22 @@
+#unity-tweak-tool美化桌面
+sudo add-apt-repository ppa:freyja-dev/unity-tweak-tool-daily
+sudo apt-get update
+sudo apt-get install unity-tweak-tool
+
+＃下载主题
+sudo add-apt-repository ppa:noobslab/themes
+sudo apt-get update
+sudo apt-get install flatabulous-theme
+sudo apt-get install numix-gtk-theme
+sudo apt-get install numix-icon-theme-circle
+sudo apt-add-repository ppa:numix/ppa
+sudo apt-get update
+sudo apt-get install numix-icon-theme-circle
+
+＃使用conky监视系统
+sudo apt-get install conky conky-all
+sudo apt-get install curl
+
+＃终端黑客帝国既视感
+sudo apt install -y cmatrix
+cmatrix
