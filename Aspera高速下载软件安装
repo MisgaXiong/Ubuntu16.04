@@ -1,0 +1,8 @@
+#Aspera是一款高速下载软件，从官网下载后
+tar -zxf aspera-connect-3.6.1.110647-linux-64.tar.gz
+sh aspera-connect-3.6.1.110647-linux-64.sh
+#软件安装在/home/.aspera/下，使用ls -a可以看见
+cd ~/.aspera/connect/bin
+echo 'PATH=$PATH:~/.aspera/connect/bin/' >> ~/.bashrc
+source ~/.bashrc
+ascp --help
