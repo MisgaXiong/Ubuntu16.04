@@ -6,3 +6,20 @@ cd ~/.aspera/connect/bin
 echo 'PATH=$PATH:~/.aspera/connect/bin/' >> ~/.bashrc
 source ~/.bashrc
 ascp --help
+#软件使用过程中可能遇到的报错:
+#1.Session Stop (Error: Server aborted session: No such file or directory)这是因为SRA数据可能暂时未同步。
+#Session Stop(Error: Cilent unable to connect to sever (check UDP port and firewall))此情况我通常会再次输入下载代码进行下载，
+一般都会成功。也可以在下载代码中加入-P33001
+
+#Session Stop (Error: failed to authenticate)这个报错我在下载单一测序数据时遇到过，
+但是在等待一段时间后重新批量下载则成功。如果还是遇到此报错不妨输入
+LOG FASP Session Start uuid=ff820f21-f00f-4ab5-ab7e-ceba3a18a81c op=send
+status=failed errcode=19 errstr="Authentication failure"
+#批量下载的代码
+for i in `seq 1253 1378`
+do
+ascp -i ascp -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh -k 1 -QT -l 500m
+anonftp@ftp-private.ncbi.nlm.nih.gov:/sra/sra-instant/reads/ByRun/sra/SRR/SRR629/SRR629${i}/SRR629${i}.sra ~/virus/virus_data
+done
+#注意-i表示引入私钥，一定要从绝对路径引入私钥asperaweb_id_openssh,-T最好加上，取消加密。否则很容易下载失败。-k表示断点续传，
+通常设置为1即可。-l 500m表示设置最大下载速度为每秒500Mb。在此设置下载下，平均速度可以达到400Mb/s。
