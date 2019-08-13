@@ -1,0 +1,23 @@
+#Ubuntu关机报错;
+#电脑系统：Windows10+Ubuntu16.04LTS
+#报错内容:PCIe Bus Error: severity=corrected type=Physcical Layer id=00e5;
+#解决方法：
+Step1:
+   #修改grub文件，并添加boot选项
+   sudo -H gedit /etc/default/grub
+   #将GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"修改为
+   GRUB_CMDLINE_LINUX_DEFAULT="quiet splash pci=noaer"
+   #修改后点击保存，退出
+   sudo update-grub
+Step2:
+   #安装新的软件包清空大的log文件，确实我的系统内log文件突然增大
+   sudo apt-get install busybox-syslogd
+   ls -s -S /var/log
+   cd /var/log
+   sudo su
+   > syslog
+   > kern.log
+   exit
+Step3：
+   #重启
+   reboot
