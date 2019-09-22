@@ -1,0 +1,42 @@
+#先检查内核版本，需要大于3.10
+uname -r
+
+#进入root状态
+su root
+
+#更新yum
+yum update
+
+#添加yum仓库
+
+tee /etc/yum.repos.d/docker.repo<<-'EOF'
+[dockerrepo]
+name=Docker Repository
+baseurl=https://yum.dockerproject.org/repo/main/centos/$releasever/
+enabled=1
+gpgcheck=1
+gpgkey=https://yum.dockerproject.org/gpg
+EOF
+
+#添加完后按照docker
+yum install -y docker-engine
+
+#启动docker
+systemctl start docker.service
+
+#检查docker是否正常安装
+docker version
+
+#如果弹出Client version等则表示成功
+#关闭Docker
+systemctl stop docker.service
+
+详细参考
+https://blog.csdn.net/qq_36892341/article/details/73918672?tdsourcetag=s_pcqq_aiomsg
+
+#如果因为更新yum导致/boot空间不足则可以
+rpm -qa | grep kernel
+uname -r
+yum remove kernel-3.10.0-1062.1.1.el7.x86_64
+df -hl
+#上面主要是查看不用的旧内核，并删除
