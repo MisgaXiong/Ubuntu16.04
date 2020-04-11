@@ -1,0 +1,16 @@
+#背景：CentOS工作站某个文件夹变成只读文件系统。
+#在root背景下
+#先查看这个文件夹属于哪个挂载盘
+df -h
+
+#再查看这个挂载盘是否变成了ro（只读）
+mount
+#/dev/sda2 on /data变成了ro
+umount /dev/sda2
+#如果发现有进程忙需要用下面两条命令kill进程
+fuser -m /dev/sda2
+fuser -mk /dev/sda2
+#如果此事root也被退出了要重新进入root
+umount /dev/sda2
+mount /dev/sda2
+#可以再查看一下对应挂载盘是否变回rw
