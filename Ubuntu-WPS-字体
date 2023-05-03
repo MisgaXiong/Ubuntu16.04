@@ -1,0 +1,16 @@
+#字体下载连接 密码：nsr4
+https://pan.baidu.com/s/1ZUbtQ96b8RVbH0LrXb_GlQ
+
+#解压字体文件
+unzip wps-font-symbols.zip
+
+#移动文件
+sudo cp -f wps-font-symbols /usr/share/fonts
+cd /usr/share/fonts && sudo chmod 755 wps-font-symbols
+cd /usr/share/fonts/wps-font-symbols && sudo chmod 644
+#构建字体索引和更新缓存
+sudo mkfontscale
+sudo mkfontdir
+sudo fc-cache
+
+#完毕，重启WPS-Linux
